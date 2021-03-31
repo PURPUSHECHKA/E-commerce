@@ -5,10 +5,13 @@ import bodyParser from 'body-parser'
 import sockjs from 'sockjs'
 import { renderToStaticNodeStream } from 'react-dom/server'
 import React from 'react'
+import axios from 'axios'
 
 import cookieParser from 'cookie-parser'
 import config from './config'
 import Html from '../client/html'
+
+const { readFile } = require('fs').promises
 
 require('colors')
 
@@ -34,6 +37,31 @@ const middleware = [
 ]
 
 middleware.forEach((it) => server.use(it))
+
+const readingFile = (file) => {
+  return readFile(`${__dirname}${file}`, { encoding: 'utf8' })
+}
+
+server.get('/api/v1/rates', async (_req, res) => {
+  try {
+    const { data } = await axios(
+      'https://api.exchangeratesapi.io/latest?base=USD&symbols=EUR,CAD,RUB,USD'
+    )
+    res.json(data.rates)
+  } catch (err) {
+    console.error(new Error(err))
+  }
+})
+
+server.get('/api/v1/data', async (req, res) => {
+  try {
+    const dataOfGoods = await readingFile('/data/data.json')
+    const ParsedDataOfGoods = JSON.parse(dataOfGoods)
+    res.send(ParsedDataOfGoods)
+  } catch (err) {
+    console.error(new Error(err))
+  }
+})
 
 server.use('/api/', (req, res) => {
   res.status(404)

@@ -40,6 +40,7 @@ const config = {
   mode: 'development',
   context: resolve(__dirname, 'client'),
   devServer: {
+    open: true,
     hotOnly: true,
     contentBase: resolve(__dirname, 'dist/assets'),
     watchContentBase: true,
