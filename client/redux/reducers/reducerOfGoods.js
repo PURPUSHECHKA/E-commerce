@@ -7,7 +7,8 @@ const SET_CURRENCY_RATE = 'SET_CURRENCY_RATE'
 const initialState = {
   listOfGoods: [],
   rates: {},
-  currentRate: 1
+  currencyRate: 1,
+  currencyType: 'USD'
 }
 
 export default (state = initialState, action) => {
@@ -27,10 +28,11 @@ export default (state = initialState, action) => {
       }
     }
     case SET_CURRENCY_RATE: {
-      const { currentRate } = action
+      const { currencyRate, currencyType } = action
       return {
         ...state,
-        currentRate
+        currencyRate,
+        currencyType
       }
     }
     default:
@@ -64,6 +66,9 @@ export const setCurrencyRate = (currencyType) => {
   return  (dispatch, getState) => {
     const store = getState()
     const { rates } =  store.reducerOfGoods
-    dispatch({ type: SET_CURRENCY_RATE, currentRate : rates[currencyType]})
+    dispatch({
+      type: SET_CURRENCY_RATE,
+      currencyRate: rates[currencyType], currencyType
+    })
   }
 }
