@@ -13,7 +13,7 @@ const Goods = () => {
   useEffect(() => dispatch(gettingRates()), [])
 
   return (
-    <div className="flex flex-wrap justify-center">
+    <div className="grid md:grid-cols-5 gap-y-4 gap-x-8 max-w-6xl m-auto">
       {listOfGoods.map(({ id, title, price }) => {
         return (
           <div key={id}>

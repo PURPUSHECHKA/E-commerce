@@ -55,6 +55,7 @@ export const gettingRates = () => {
   return async (dispatch) => {
     try {
       const { data: rates } = await axios('/api/v1/rates')
+      console.log(rates)
       dispatch({ type: GET_RATES, rates })
     } catch (err) {
       dispatch({ type: GET_RATES, rates: {} })

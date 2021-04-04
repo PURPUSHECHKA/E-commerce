@@ -9,34 +9,21 @@ const CurrencyRates = () => {
     dispatch(setCurrencyRate(rate))
   }
 
+  const classForButtons =
+    'border border-gray-400 focus:bg-gray-900 focus:text-green-300 rounded-md px-4 py-2 m-2 transition duration-700 ease select-none hover:bg-gray-300 focus:outline-none focus:shadow-outline'
+
   return (
     <div>
-      <button
-        className=" border border-gray-400 focus:bg-gray-900 focus:text-green-300 rounded-md px-4 py-2 m-2 transition duration-700 ease select-none hover:bg-gray-300 focus:outline-none focus:shadow-outline"
-        type="button"
-        onClick={() => changeCurrency('USD')}
-      >
+      <button className={classForButtons} type="button" onClick={() => changeCurrency('USD')}>
         USD
       </button>
-      <button
-        className="border border-gray-400 focus:bg-gray-900 focus:text-green-300 rounded-md px-4 py-2 m-2 transition duration-700 ease select-none hover:bg-gray-300 focus:outline-none focus:shadow-outline"
-        type="button"
-        onClick={() => changeCurrency('EUR')}
-      >
+      <button className={classForButtons} type="button" onClick={() => changeCurrency('EUR')}>
         EUR
       </button>
-      <button
-        className="border border-gray-400 focus:bg-gray-900 focus:text-green-300 rounded-md px-4 py-2 m-2 transition duration-700 ease select-none hover:bg-gray-300 focus:outline-none focus:shadow-outline"
-        type="button"
-        onClick={() => changeCurrency('CAD')}
-      >
+      <button className={classForButtons} type="button" onClick={() => changeCurrency('CAD')}>
         CAD
       </button>
-      <button
-        className="border border-gray-400 focus:bg-gray-900 focus:text-green-300 rounded-md px-4 py-2 m-2 transition duration-700 ease select-none hover:bg-gray-300 focus:outline-none focus:shadow-outline"
-        type="button"
-        onClick={() => changeCurrency('RUB')}
-      >
+      <button className={classForButtons} type="button" onClick={() => changeCurrency('RUB')}>
         RUB
       </button>
     </div>

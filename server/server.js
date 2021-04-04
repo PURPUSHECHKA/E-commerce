@@ -44,22 +44,23 @@ const readingFile = (file) => {
 
 server.get('/api/v1/rates', async (_req, res) => {
   try {
-    const { data } = await axios(
-      'https://api.exchangeratesapi.io/latest?base=USD&symbols=EUR,CAD,RUB,USD'
-    )
-    res.json(data.rates)
+    const url = 'https://api.ratesapi.io/api/latest?base=USD&symbols=EUR,CAD,RUB,USD'
+    const {
+      data: { rates }
+    } = await axios(url)
+    res.json(rates)
   } catch (err) {
-    console.error(new Error(err))
+    throw new Error(`${err}: GET request to /api/v1/rates failed`)
   }
 })
 
-server.get('/api/v1/data', async (req, res) => {
+server.get('/api/v1/data', async (_req, res) => {
   try {
     const dataOfGoods = await readingFile('/data/data.json')
     const ParsedDataOfGoods = JSON.parse(dataOfGoods)
     res.send(ParsedDataOfGoods)
   } catch (err) {
-    console.error(new Error(err))
+    throw new Error(`${err}: GET request to /api/v1/data failed`)
   }
 })
 
