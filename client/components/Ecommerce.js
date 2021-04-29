@@ -7,8 +7,8 @@ const Ecommerce = () => {
   return (
     <div>
       <Head title="Hello" />
-        <Main />
-      </div>
+      <Main />
+    </div>
   )
 }
 

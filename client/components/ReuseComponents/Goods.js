@@ -13,14 +13,13 @@ const Goods = () => {
   useEffect(() => dispatch(gettingRates()), [])
 
   return (
-    <div className="grid md:grid-cols-5 gap-y-4 gap-x-8 max-w-6xl m-auto">
+    <div className="mt-4 grid md:grid-cols-5 gap-y-4 gap-x-10 max-w-6xl m-auto">
       {listOfGoods.map(({ id, title, price }) => {
         return (
-          <div key={id}>
+          <div className="bg-red-400 shadow-lg" key={id}>
             <div>{title}</div>
-            <div>
-              {(price * currencyRate).toFixed(2)} - {currencyType}
-            </div>
+            <span className="text-center">{(price * currencyRate).toFixed(2)}</span>
+            <span className="text-center"> {currencyType}</span>
           </div>
         )
       })}
