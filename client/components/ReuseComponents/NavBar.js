@@ -1,17 +1,36 @@
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { getCharactersToFilter } from '../../redux/reducers/reducerOfGoods'
 import CurrencyRates from './CurrencyRates'
 
 const NavBar = () => {
+  const dispatch = useDispatch()
+  console.log(dispatch)
+  const [searchCharacter, setSearchCharacter] = useState('')
+
+  const inputElement = useRef('')
+
+  const getSearchCharacter = () => {
+    setSearchCharacter(inputElement.current.value)
+  }
+
+  useEffect(() => {
+    dispatch(getCharactersToFilter(searchCharacter))
+  }, [searchCharacter])
+
   return (
-    <div className="flex flex-row items-center justify-evenly bg-gradient-to-r from-gray-300 to-gray-200 shadow-xs">
+    <div className="flex flex-row items-center justify-around bg-gradient-to-r from-red-100 to-red-50 shadow-xs rounded-full">
       <Link to="/" className="flex flex-shrink">
         <span className="text-xl text-gray-700">PURPUSHECHKA`S SHOP</span>
       </Link>
       <div className="h-10 bg-blue-50 border border-gray-600 text-sm rounded-full flex">
         <input
-          type="search"
-          name="serch"
+          ref={inputElement}
+          value={searchCharacter}
+          onChange={getSearchCharacter}
+          type="text"
+          name="search"
           placeholder="Search"
           className="px-5 rounded-full text-sm focus:outline-none"
         />
