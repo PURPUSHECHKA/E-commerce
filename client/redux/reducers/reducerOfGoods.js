@@ -3,13 +3,17 @@ import axios from 'axios'
 const GET_GOODS = 'GET_GOODS'
 const GET_RATES = 'GET_RATES'
 const SET_CURRENCY_RATE = 'SET_CURRENCY_RATE'
+const GET_SEARCH_CHARACTER_TO_FILTER = 'GET_SEARCH_CHARACTER_TO_FILTER'
 
 const initialState = {
   listOfGoods: [],
   rates: {},
   currencyRate: 1,
-  currencyType: 'USD'
+  currencyType: 'USD',
+  charForFilter: ''
 }
+
+
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -35,16 +39,23 @@ export default (state = initialState, action) => {
         currencyType
       }
     }
+    case GET_SEARCH_CHARACTER_TO_FILTER: {
+      const {char} = action
+      return {
+        ...state,
+        charForFilter: char
+      }
+    }
     default:
       return state
   }
 }
 
-export const gettingGoods = () => {
+export const gettingGoods = (getImage) => {
   return async (dispatch) => {
     try {
       const { data: listOfGoods } = await axios('/api/v1/data')
-      dispatch({ type: GET_GOODS, listOfGoods })
+      dispatch({ type: GET_GOODS, listOfGoods: getImage(listOfGoods) })
     } catch (err) {
       dispatch({ type: GET_GOODS, listOfGoods: [] })
     }
@@ -71,5 +82,11 @@ export const setCurrencyRate = (currencyType) => {
       type: SET_CURRENCY_RATE,
       currencyRate: rates[currencyType], currencyType
     })
+  }
+}
+
+export const getCharactersToFilter = (char) => {
+  return (dispatch) => {
+    dispatch({ type: GET_SEARCH_CHARACTER_TO_FILTER, char })
   }
 }
