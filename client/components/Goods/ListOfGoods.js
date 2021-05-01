@@ -32,7 +32,7 @@ const Goods = () => {
   return renderGoods.length < 1 ? (
     <ProductNotFound />
   ) : (
-    <article className="mt-4 mx-auto max-w-6xl grid md:grid-cols-4 md:gap-y-4 md:gap-x-8 grid-cols-2 gap-y-2 gap-x-4">
+    <article className="mx-auto max-w-6xl grid md:grid-cols-4 md:gap-y-4 md:gap-x-8 grid-cols-2 gap-y-2 gap-x-4">
       {renderGoods}
     </article>
   )

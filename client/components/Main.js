@@ -3,11 +3,11 @@ import React from 'react'
 import Head from './head'
 
 import ListOfGoods from './Goods/ListOfGoods'
-import NavBar from './ReuseComponents/NavBar'
+import NavBar from './NavBar/NavBar'
 
 const Main = () => {
   return (
-    <div className="h-screen bg-amber-50">
+    <div className="bg-gradient-to-b from-cyan-50 via-fuchsia-50 to-amber-50">
       <Head title="Hello" />
       <NavBar />
       <ListOfGoods />

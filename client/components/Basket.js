@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from './head'
-import NavBar from './ReuseComponents/NavBar'
+import NavBar from './NavBar/NavBar'
+
 
 const Basket = () => {
   return (
