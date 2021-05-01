@@ -1,31 +1,32 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { setCurrencyRate } from '../../redux/reducers/reducerOfGoods'
 
 const CurrencyRates = () => {
   const dispatch = useDispatch()
+  const { currencyType } = useSelector((s) => s.reducerOfGoods)
   const changeCurrency = (rate) => {
     dispatch(setCurrencyRate(rate))
   }
 
-  const classForButtons =
-    'border border-gray-400 focus:bg-gray-900 focus:text-green-300 rounded-md px-4 py-2 m-2 transition duration-700 ease select-none hover:bg-gray-300 focus:outline-none focus:shadow-outline'
+  const notActive =
+    'rounded-md m-1 px-3 py-2 bg-blue-200 transition duration-700 hover:bg-blue-300 focus:outline-none'
+  const active =
+    'rounded-md m-1 px-3 py-2 bg-gray-800 text-green-300 transition duration-700 focus:outline-none'
 
   return (
     <div>
-      <button className={classForButtons} type="button" onClick={() => changeCurrency('USD')}>
-        USD
-      </button>
-      <button className={classForButtons} type="button" onClick={() => changeCurrency('EUR')}>
-        EUR
-      </button>
-      <button className={classForButtons} type="button" onClick={() => changeCurrency('CAD')}>
-        CAD
-      </button>
-      <button className={classForButtons} type="button" onClick={() => changeCurrency('RUB')}>
-        RUB
-      </button>
+      {['USD', 'EUR', 'CAD', 'RUB'].map((currency) => (
+        <button
+          key={currency}
+          className={currencyType === currency ? active : notActive}
+          type="button"
+          onClick={() => changeCurrency(currency)}
+        >
+          {currency}
+        </button>
+      ))}
     </div>
   )
 }
