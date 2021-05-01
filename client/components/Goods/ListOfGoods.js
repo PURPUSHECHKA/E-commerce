@@ -20,6 +20,7 @@ const Goods = () => {
     dispatch(gettingGoods(getImage))
     dispatch(gettingRates())
   }, [])
+
   const renderGoods = listOfGoods.reduce((acc, allGoods) => {
     if (charForFilter === '') {
       return [...acc, <Product key={allGoods.id} allGoods={allGoods} />]
