@@ -20,7 +20,7 @@ const NavBar = () => {
   }, [searchCharacter])
 
   return (
-    <div className="flex flex-row items-center justify-around bg-gradient-to-r from-red-100 to-red-50 shadow-xs rounded-full">
+    <div className="flex flex-row items-center justify-around py-1 bg-gradient-to-r from-red-100 to-red-50 shadow-xs rounded-full">
       <Link to="/" className="flex flex-shrink">
         <span className="text-xl text-gray-700">PURPUSHECHKA`S SHOP</span>
       </Link>
@@ -49,7 +49,7 @@ const NavBar = () => {
           />
         </svg>
       </div>
-      <div className="flex flex-row-reverse">
+      <div className="flex flex-row">
         <CurrencyRates />
       </div>
     </div>
