@@ -20,18 +20,20 @@ const Goods = () => {
     dispatch(gettingGoods(getImage))
     dispatch(gettingRates())
   }, [])
-const renderGoods = listOfGoods.reduce((acc, allGoods) => {
-        if (charForFilter === '') {
-          return [...acc, <Product key={allGoods.id} allGoods={allGoods} />]
-        }
-        if (allGoods.title.toLowerCase().includes(charForFilter.toLowerCase())) {
-          return [...acc, <Product key={allGoods.id} allGoods={allGoods} />]
-        }
-        return acc
-      }, [])
-  return (
+  const renderGoods = listOfGoods.reduce((acc, allGoods) => {
+    if (charForFilter === '') {
+      return [...acc, <Product key={allGoods.id} allGoods={allGoods} />]
+    }
+    if (allGoods.title.toLowerCase().includes(charForFilter.toLowerCase())) {
+      return [...acc, <Product key={allGoods.id} allGoods={allGoods} />]
+    }
+    return acc
+  }, [])
+  return renderGoods.length < 1 ? (
+    <ProductNotFound />
+  ) : (
     <article className="mt-4 mx-auto max-w-6xl grid md:grid-cols-4 md:gap-y-4 md:gap-x-8 grid-cols-2 gap-y-2 gap-x-4">
-      {renderGoods.length < 1 ? <ProductNotFound /> : renderGoods}
+      {renderGoods}
     </article>
   )
 }
