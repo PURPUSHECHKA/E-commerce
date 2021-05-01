@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import CurrencyRates from './CurrencyRates'
 import InputSearch from './InputSearch'
+import SortingOfGoods from './SortingOfGoods'
 
 const NavBar = () => {
   return (
@@ -10,6 +11,7 @@ const NavBar = () => {
       <Link to="/">
         <span className="text-xl text-gray-700">PURPUSHECHKA`S SHOP</span>
       </Link>
+      <SortingOfGoods />
       <InputSearch />
       <div className="flex flex-row">
         <CurrencyRates />
