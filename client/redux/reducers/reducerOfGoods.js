@@ -11,6 +11,7 @@ const initialState = {
   rates: {},
   currencyRate: 1,
   currencyType: 'USD',
+  sortedType: 'Default',
   charForFilter: ''
 }
 
@@ -24,13 +25,13 @@ export default (state = initialState, action) => {
       }
     }
     case SORTED_GOODS: {
-      const { sortedListOfGoods } = action
+      const { listOfGoods, sortedType } = action
       return {
         ...state,
-        listOfGoods: sortedListOfGoods
+        listOfGoods,
+        sortedType
       }
     }
-
     case GET_RATES: {
       const { rates } = action
       return {
@@ -98,17 +99,27 @@ export const getCharactersToFilter = (char) => {
   }
 }
 
-export const doSortingGoods = (typeOfSort) => {
-  return (dispatch, getState) => {
+export const doSortingGoods = (dataForSort, typeOfSort, getImage) => {
+  return async (dispatch, getState) => {
     const store = getState()
     const { listOfGoods } = store.reducerOfGoods
-    const parsedTypeOfSort = JSON.parse(typeOfSort)
-    const {type, order} = parsedTypeOfSort
-    const sortedListOfGoods = [...listOfGoods].sort((a, b) => {
-      return type === 'price'
-        ? (a.price - b.price) * order
-        : a.title.localeCompare(b.title) * order
-    })
-    dispatch({ type: SORTED_GOODS, sortedListOfGoods })
+    const parsedDataForSort = JSON.parse(dataForSort)
+    const { type, order } = parsedDataForSort
+    if (type === 'Default') {
+      const { data } = await axios('/api/v1/data')
+      const sortedListOfGoods = getImage(data)
+      dispatch({
+        type: SORTED_GOODS,
+        listOfGoods: sortedListOfGoods,
+        sortedType: typeOfSort
+      })
+    } else {
+      const sortedListOfGoods = [...listOfGoods].sort((a, b) => {
+        return type === 'Price'
+          ? (a.price - b.price) * order
+          : a.title.localeCompare(b.title) * order
+      })
+      dispatch({ type: SORTED_GOODS, listOfGoods: sortedListOfGoods, sortedType: typeOfSort })
+    }
   }
 }
