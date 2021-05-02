@@ -7,7 +7,7 @@ import NavBar from './NavBar/NavBar'
 
 const Main = () => {
   return (
-    <div className="bg-gradient-to-b from-cyan-50 via-fuchsia-50 to-amber-50">
+    <div className="lg:mx-6">
       <Head title="Hello" />
       <NavBar />
       <ListOfGoods />
