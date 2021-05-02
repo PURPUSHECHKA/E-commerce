@@ -5,7 +5,7 @@ import Main from './Main'
 
 const Ecommerce = () => {
   return (
-    <div>
+    <div className="bg-gradient-to-b from-cyan-50 via-fuchsia-50 to-amber-50">
       <Head title="Hello" />
       <Main />
     </div>
