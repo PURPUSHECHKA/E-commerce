@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { gettingGoods, gettingRates } from '../../redux/reducers/reducerOfGoods'
+import getImage from '../reuseFunc/getImage'
 
 import Product from './Product'
 import ProductNotFound from './ProductNotFound'
@@ -10,12 +11,8 @@ const Goods = () => {
   const dispatch = useDispatch()
   const { listOfGoods, charForFilter } = useSelector((s) => s.reducerOfGoods)
 
-  const getImage = (products) => {
-    return products.map((product) => ({
-      ...product,
-      image: `https://source.unsplash.com/800x600/?${/\w+(?=\s)/gi.exec(product.title)}`
-    }))
-  }
+  const style = `grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-6 2xl:grid-cols-5 2xl:gap-8`
+
   useEffect(() => {
     dispatch(gettingGoods(getImage))
     dispatch(gettingRates())
@@ -33,9 +30,7 @@ const Goods = () => {
   return renderGoods.length < 1 ? (
     <ProductNotFound />
   ) : (
-    <article className="mx-auto max-w-6xl grid md:grid-cols-4 md:gap-y-4 md:gap-x-8 grid-cols-2 gap-y-2 gap-x-4">
-      {renderGoods}
-    </article>
+    <article className={style}>{renderGoods}</article>
   )
 }
 
