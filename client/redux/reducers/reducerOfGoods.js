@@ -12,7 +12,8 @@ const initialState = {
   currencyRate: 1,
   currencyType: 'USD',
   sortedType: 'Default',
-  charForFilter: ''
+  charForFilter: '',
+  setCharForFilter: () => {}
 }
 
 export default (state = initialState, action) => {
@@ -48,10 +49,11 @@ export default (state = initialState, action) => {
       }
     }
     case GET_SEARCH_CHARACTER_TO_FILTER: {
-      const { char } = action
+      const { char, setCharForFilter } = action
       return {
         ...state,
-        charForFilter: char
+        charForFilter: char,
+        setCharForFilter
       }
     }
     default:
@@ -93,9 +95,9 @@ export const setCurrencyRate = (currencyType) => {
   }
 }
 
-export const getCharactersToFilter = (char) => {
+export const getCharactersToFilter = (char, setCharForFilter) => {
   return (dispatch) => {
-    dispatch({ type: GET_SEARCH_CHARACTER_TO_FILTER, char })
+    dispatch({ type: GET_SEARCH_CHARACTER_TO_FILTER, char, setCharForFilter })
   }
 }
 
@@ -107,10 +109,10 @@ export const doSortingGoods = (dataForSort, typeOfSort, getImage) => {
     const { type, order } = parsedDataForSort
     if (type === 'Default') {
       const { data } = await axios('/api/v1/goods')
-      const sortedListOfGoods = getImage(data)
+      const defaultList = getImage(data)
       dispatch({
         type: SORTED_GOODS,
-        listOfGoods: sortedListOfGoods,
+        listOfGoods: defaultList,
         sortedType: typeOfSort
       })
     } else {
