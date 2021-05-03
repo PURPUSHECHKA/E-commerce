@@ -5,7 +5,7 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 
 import { setCurrencyRate } from '../../redux/reducers/reducerOfGoods'
 
- const CurrencyRates = () => {
+const CurrencyRates = () => {
   const dispatch = useDispatch()
 
   const { currencyType } = useSelector((s) => s.reducerOfGoods)
@@ -19,9 +19,9 @@ import { setCurrencyRate } from '../../redux/reducers/reducerOfGoods'
 
   function activityButtons(currency) {
     const notActiveButton =
-      'rounded-lg mt-1 px-2 py-1 bg-blue-200 hover:bg-blue-300 transition duration-700 focus:outline-none'
+      'w-full rounded-md mt-1 px-2 py-1 bg-blue-200 hover:bg-blue-300 text-bold text-violet-500 transition duration-700 focus:outline-none'
     const activeButton =
-      'rounded-lg mt-1 px-2 py-1 bg-violet-500 hover:bg-violet-600 text-green-200 transition duration-700 focus:outline-none'
+      'w-full rounded-md mt-1 px-2 py-1 bg-violet-500 hover:bg-violet-600 text-bold text-amber-500 transition duration-700 focus:outline-none'
     return currencyType === currency ? activeButton : notActiveButton
   }
 
@@ -33,7 +33,7 @@ import { setCurrencyRate } from '../../redux/reducers/reducerOfGoods'
       {({ open }) => (
         <>
           <div>
-            <Menu.Button className="inline-flex justify-center w-full rounded-lg shadow-sm px-4 py-2 bg-white text-sm font-medium focus:outline-none">
+            <Menu.Button className="inline-flex justify-center w-full whitespace-nowrap rounded-lg shadow-sm px-4 py-2 bg-white text-sm font-medium focus:outline-none">
               Change rates
               <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
             </Menu.Button>
