@@ -5,13 +5,12 @@ import bodyParser from 'body-parser'
 import sockjs from 'sockjs'
 import { renderToStaticNodeStream } from 'react-dom/server'
 import React from 'react'
-import axios from 'axios'
 
 import cookieParser from 'cookie-parser'
 import config from './config'
 import Html from '../client/html'
-
-const { readFile } = require('fs').promises
+import routeGoods from './routes/routeGoods'
+import routeRates from './routes/routeRates'
 
 require('colors')
 
@@ -38,31 +37,8 @@ const middleware = [
 
 middleware.forEach((it) => server.use(it))
 
-const readingFile = (file) => {
-  return readFile(`${__dirname}${file}`, { encoding: 'utf8' })
-}
-
-server.get('/api/v1/rates', async (_req, res) => {
-  try {
-    const url = 'https://api.ratesapi.io/api/latest?base=USD&symbols=EUR,CAD,RUB,USD'
-    const {
-      data: { rates }
-    } = await axios(url)
-    res.json(rates)
-  } catch (err) {
-    throw new Error(`${err}: GET request to /api/v1/rates failed`)
-  }
-})
-
-server.get('/api/v1/data', async (_req, res) => {
-  try {
-    const dataOfGoods = await readingFile('/data/data.json')
-    const ParsedDataOfGoods = JSON.parse(dataOfGoods)
-    res.send(ParsedDataOfGoods)
-  } catch (err) {
-    throw new Error(`${err}: GET request to /api/v1/data failed`)
-  }
-})
+server.use('/api/v1/rates', routeRates)
+server.use('/api/v1/goods', routeGoods)
 
 server.use('/api/', (req, res) => {
   res.status(404)
