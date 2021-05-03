@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, memo } from 'react'
 import { useDispatch } from 'react-redux'
+
 import { getCharactersToFilter } from '../../redux/reducers/reducerOfGoods'
 
 const InputSearch = () => {
@@ -12,11 +13,11 @@ const InputSearch = () => {
   }
 
   useEffect(() => {
-    dispatch(getCharactersToFilter(searchCharacter))
+    dispatch(getCharactersToFilter(searchCharacter, setSearchCharacter))
   }, [searchCharacter])
 
   return (
-    <div className="h-10 bg-blue-50 border border-gray-600 text-sm rounded-full flex">
+    <div className="flex ml-2 sm:m-auto h-7 sm:h-10 bg-blue-50 border border-gray-600 text-sm rounded-full">
       <input
         ref={inputRef}
         value={searchCharacter}
@@ -24,7 +25,7 @@ const InputSearch = () => {
         type="text"
         name="search"
         placeholder="Search"
-        className="px-5 rounded-full text-sm focus:outline-none"
+        className="flex w-full px-5 rounded-full text-sm focus:outline-none"
       />
       <svg
         className="w-5 h-5 block my-auto mx-1 text-lg text-gray-700"
