@@ -2,7 +2,7 @@ import React from 'react'
 
 const ProductNotFound = () => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col text-center items-center">
       <p className="text-2xl sm:text-4xl">Sorry, but the product was not found.</p>
       <svg
         xmlns="http://www.w3.org/2000/svg"
