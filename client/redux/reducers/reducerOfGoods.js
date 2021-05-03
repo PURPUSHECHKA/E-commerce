@@ -62,7 +62,7 @@ export default (state = initialState, action) => {
 export const gettingGoods = (getImage) => {
   return async (dispatch) => {
     try {
-      const { data: listOfGoods } = await axios('/api/v1/data')
+      const { data: listOfGoods } = await axios('/api/v1/goods')
       dispatch({ type: GET_GOODS, listOfGoods: getImage(listOfGoods) })
     } catch (err) {
       dispatch({ type: GET_GOODS, listOfGoods: [] })
@@ -106,7 +106,7 @@ export const doSortingGoods = (dataForSort, typeOfSort, getImage) => {
     const parsedDataForSort = JSON.parse(dataForSort)
     const { type, order } = parsedDataForSort
     if (type === 'Default') {
-      const { data } = await axios('/api/v1/data')
+      const { data } = await axios('/api/v1/goods')
       const sortedListOfGoods = getImage(data)
       dispatch({
         type: SORTED_GOODS,
