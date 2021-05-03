@@ -3,6 +3,15 @@ const colors = require('tailwindcss/colors')
 module.exports = {
   purge: ['./client/**/*.html', './client/**/*.jsx', './client/**/*.js'],
   theme: {
+    screens: {
+      xs: '500px',
+      sm: '640px',
+      md: '768px',
+      lg: '1160px',
+      xl: '1280px',
+      '2xl': '1540px',
+      '3xl': '1920px'
+    },
     padding: {
       2: '0.5rem',
       4: '1rem',
@@ -10,12 +19,14 @@ module.exports = {
       '2%': '2%'
     },
     maxWidth: {
-      xs: '20rem',
+      240: '240px',
+      xs: '28rem',
       lg: '32rem',
       '2xl': '42rem',
       '4xl': '56rem',
+      '5xl': '64rem',
       '7xl': '80rem',
-      240: '240px'
+      '9xl': '96rem'
     },
     colors: {
       transparent: 'transparent',
