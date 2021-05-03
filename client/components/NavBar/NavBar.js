@@ -9,8 +9,8 @@ import InputSearch from './InputSearch'
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <nav className="sticky top-0 bg-red-100 bg-opacity-80 shadow-xs rounded-md lg:rounded-full mb-10 ">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 bg-red-100 bg-opacity-80 shadow-xs rounded-md lg:rounded-full mb-10">
+      <div className="mx-auto">
         <div className="flex flex-row justify-between items-center p-2">
           <MobileMainMenu setIsOpen={setIsOpen} isOpen={isOpen} />
           <div className="hidden sm:flex">
