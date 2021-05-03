@@ -7,7 +7,7 @@ import NavBar from './NavBar/NavBar'
 
 const Main = () => {
   return (
-    <div className="lg:mx-6">
+    <div className="px-2%">
       <Head title="Hello" />
       <NavBar />
       <ListOfGoods />
