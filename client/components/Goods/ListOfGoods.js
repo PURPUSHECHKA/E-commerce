@@ -11,7 +11,8 @@ const Goods = () => {
   const dispatch = useDispatch()
   const { listOfGoods, charForFilter } = useSelector((s) => s.reducerOfGoods)
 
-  const style = `mx-auto max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl 2xl:max-w-7xl sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-6 2xl:grid-cols-5 2xl:gap-8`
+  const style = `mx-auto max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-5xl 2xl:max-w-7xl 3xl:max-w-9xl
+   grid gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-6 xl:gap-8 2xl:grid-cols-5 2xl:gap-10 3xl:grid-cols-6 3xl:gap-12`
 
   useEffect(() => {
     dispatch(gettingGoods(getImage))
