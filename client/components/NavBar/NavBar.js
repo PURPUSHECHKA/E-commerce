@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
 import { Transition } from '@headlessui/react'
 import CurrencyRates from './CurrencyRates'
 import MobileMainMenu from './MobileNavBar/MobileMainMenu'
 import SortingOfGoods from './SortingOfGoods'
 import InputSearch from './InputSearch'
 import ShowInputSearch from './MobileNavBar/ShowInputSearch'
+import QuantityGoodsInBasket from '../Basket/QuantityGoodsInBasket'
 
 const NavBar = () => {
   const [isOpenMobileMenu, setIsOpenMobileMenu] = useState(false)
@@ -26,14 +26,7 @@ const NavBar = () => {
             </div>
           </div>
           <ShowInputSearch />
-          <div className="flex items-center h-6 w-6 lg:h-8 lg:w-8">
-            <Link to="/">
-              <img
-                alt="basket"
-                src="https://img.icons8.com/pastel-glyph/64/4a90e2/shopping-basket-2--v1.png"
-              />
-            </Link>
-          </div>
+          <QuantityGoodsInBasket />
         </div>
       </div>
 
