@@ -11,6 +11,7 @@ import Ecommerce from '../components/Ecommerce'
 import NotFound from '../components/404'
 
 import Startup from './startup'
+import Basket from '../components/Basket/Basket'
 
 const OnlyAnonymousRoute = ({ component: Component, ...rest }) => {
   const func = (props) =>
@@ -72,6 +73,7 @@ const RootComponent = (props) => {
         <Startup>
           <Switch>
             <Route exact path="/" component={() => <Ecommerce />} />
+            <Route exact path="/basket" component={() => <Basket />} />
             <PrivateRoute exact path="/*" component={() => <Ecommerce />} />
             <Route component={() => <NotFound />} />
           </Switch>
