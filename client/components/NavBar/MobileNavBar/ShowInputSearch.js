@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { Transition } from '@headlessui/react'
@@ -12,8 +13,8 @@ const ShowInputSearch = () => {
   const openInputSearch = () => setIsOpenInputSearch(!isOpenInputSearch)
 
   return (
-    <div className="flex flex-row-reverse flex-grow sm:hidden">
-      <div className="ml-auto flex items-center sm:hidden">
+    <div className="flex justify-between flex-row-reverse flex-grow sm:hidden">
+      <div className=" flex items-center sm:hidden">
         <span className="sr-only">Open input for search</span>
         {(isOpenInputSearch && (
           <button
@@ -59,6 +60,11 @@ const ShowInputSearch = () => {
       >
         <InputSearch />
       </Transition>
+      {!isOpenInputSearch && (
+        <Link to="/" className="h-10 w-32 mx-auto lg:mx-32 flex items-center">
+          <img alt="logo" src="images/logo-ecommerce.png" />
+        </Link>
+      )}
     </div>
   )
 }
