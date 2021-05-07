@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react'
 import { useSelector } from 'react-redux'
 import NavBar from '../NavBar/NavBar'
@@ -12,62 +11,114 @@ const Basket = () => {
   const goodsInBasket = listOfGoods.filter(({ id }) => basketId.includes(id))
   const { currencyRate, currencyType } = useSelector((s) => s.reducerOfGoods)
 
-  const basketTotalPrice = listOfIdsProducts.reduce((acc, rec) => {
+  const basketTotalPrice = listOfIdsProducts.reduce((acc, product) => {
     const productPrice =
-      (goodsInBasket.find((item) => item.id === rec.id)?.price || 0) * rec.quantity
+      (goodsInBasket.find(({ id }) => id === product.id)?.price || 0) * product.quantity
     return acc + productPrice
   }, 0)
+
   return (
-    <div className="px-2%">
+    <div className="px-2% bg-gradient-to-b from-cyan-50 via-fuchsia-50 to-amber-50">
       <NavBar />
-      <table className="grid mx-auto rounded-lg px-2 rounded-t-lg  bg-indigo-600">
-        <thead>
-          <tr className="grid grid-cols-5 justify-items-stretch text-gray-200">
-            <th className="col-start-2 p-3">PRODUCT</th>
-            <th className="col-span-1 p-3">QUANTITY</th>
-            <th className="col-span-1 p-3">UNIT PRICE</th>
-            <th className="col-span-1 p-3">TOTAL PRICE</th>
+      <table className="m-0 p-0 w-full table-fixed rounded-lg">
+        <caption className="text-2xl sm:text-3xl text-gray-700 font-bold sm:font-extrabold mb-4">
+          {goodsInBasket.length > 0 ? 'Basket' : 'Basket is empty'}
+        </caption>
+        <thead className="mb-5 border-b rounded-lg">
+          <tr className="p-4 bg-blueGray-300">
+            <th
+              className="tracking-wider text-center py-4 px-6 bg-grey-lightest font-bold text-2xl text-grey-dark"
+              scope="col"
+            >
+              PRODUCT
+            </th>
+            <th
+              className="tracking-wider text-center py-4 px-6 bg-grey-lightest font-bold text-2xl text-grey-dark"
+              scope="col"
+            >
+              QUANTITY
+            </th>
+            <th
+              className="tracking-wider text-center py-4 px-6 bg-grey-lightest font-bold text-2xl text-grey-dark"
+              scope="col"
+            >
+              UNTIL PRICE
+            </th>
+            <th
+              className="tracking-wider text-center py-4 px-6 bg-grey-lightest font-bold text-2xl text-grey-dark"
+              scope="col"
+            >
+              TOTAL PRICE
+            </th>
           </tr>
         </thead>
-        <tbody className="bg-indigo-200">
+        <tbody className="mb-5 rounded-lg">
           {goodsInBasket.map((particularProduct) => {
             const { quantity } = listOfIdsProducts.find((it) => it.id === particularProduct.id)
             return (
               <tr
+                className="p-4 bg-blueGray-200 border-b border-blueGray-400"
                 key={particularProduct.id}
-                className="grid grid-cols-5 justify-items-stretch mt-3 text-center text-gray-700"
               >
-                <td className="p-3">
-                  <img
-                    alt={particularProduct.title}
-                    className="block object-cover"
-                    src={particularProduct.image}
-                  />
+                <td className="py-4 px-6 text-right sm:text-center" data-label="PRODUCT">
+                  <td className="flex flex-row-reverse items-center">
+                    <img
+                      className="ml-5 rounded-full h-14 w-14"
+                      alt={particularProduct.title}
+                      src={particularProduct.image}
+                    />
+                    <span className="uppercase text-sm">{particularProduct.title}</span>
+                  </td>
                 </td>
-                <td className="p-3 place-self-center">{particularProduct.title}</td>
-                <td className="p-3 w-full place-self-center">
-                  <AddToBasket basketCount={quantity} particularProduct={particularProduct} />
+                <td className="py-4 px-6" data-label="QUANTITY">
+                  <div className="ml-auto sm:m-auto w-24 sm:w-32">
+                    <AddToBasket basketCount={quantity} particularProduct={particularProduct} />
+                  </div>
                 </td>
-                <td className="text-right p-3 place-self-center">
-                  <span className="mx-1">
+                <td className=" py-4 px-6 text-right sm:text-center" data-label="UNTIL PRICE">
+                  <span className="mx-1 uppercase text-sm">
                     {(particularProduct.price * currencyRate).toFixed(2)}
                   </span>
-                  <span>{currencyType}</span>
+                  <span className="uppercase text-sm">{currencyType}</span>
                 </td>
-                <td className="text-right p-3 place-self-center">
-                  <span>{(quantity * particularProduct.price * currencyRate).toFixed(2)}</span>
-                  <span>{currencyType}</span>
+                <td className="py-4 px-6 text-right sm:text-center" data-label="TOTAL PRICE">
+                  <span className="uppercase text-sm">
+                    {(quantity * particularProduct.price * currencyRate).toFixed(2)}
+                  </span>
+                  <span className="uppercase text-sm">{currencyType}</span>
                 </td>
               </tr>
             )
           })}
         </tbody>
-        <tfoot>
-          <tr className="bg-indigo-400 rounded-lg flex justify-between pt-4 border-b">
-            <td className="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
-              Total
-            </td>
-            <td className="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+        {basketTotalPrice > 1 && (
+          <tfoot classame="rounded-lg">
+            <tr className="bg-blueGray-300 p1 sm:p-4">
+              <td
+                colSpan="4"
+                className=" p-1 sm:p-4 font-bold sm:font-extrabold text:xl sm:text-2xl text-center"
+              >
+                {' '}
+                <span>TOTAL</span>
+                <span className="mx-1">{(basketTotalPrice * currencyRate).toFixed(2)}</span>
+                <span>{currencyType}</span>
+              </td>
+            </tr>
+          </tfoot>
+        )}
+      </table>
+    </div>
+  )
+}
+Basket.propTypes = {}
+
+export default React.memo(Basket)
+
+/*
+     <tfoot classame="rounded-lg">
+          <tr className="flex items-end bg-blueGray-300  p-4">
+            <td className="font-bold text-center">Total</td>
+            <td className="font-bold text-center">
               <span className="total-amount mx-1">
                 {(basketTotalPrice * currencyRate).toFixed(2)}
               </span>
@@ -75,11 +126,4 @@ const Basket = () => {
             </td>
           </tr>
         </tfoot>
-      </table>
-    </div>
-  )
-}
-
-Basket.propTypes = {}
-
-export default React.memo(Basket)
+*/
