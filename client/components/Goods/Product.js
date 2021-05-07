@@ -10,7 +10,6 @@ const Product = ({ particularProduct, basketCount }) => {
   const dispatch = useDispatch()
   const { currencyRate, currencyType } = useSelector((s) => s.reducerOfGoods)
   const addProduct = () => dispatch(addIdForProduct(id, 1))
-  console.log('Product quantity', basketCount)
   return (
     <section className="max-w-240 mx-auto flex flex-col rounded-lg shadow-lg hover:shadow-2xl bg-lime-100">
       <img alt={title} className="block object-cover h-48 w-full rounded-t-lg mb-2" src={image} />
