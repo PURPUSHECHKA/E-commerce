@@ -20,30 +20,25 @@ const Goods = () => {
     dispatch(gettingRates())
   }, [])
 
-  const renderGoods = listOfGoods.map((particularProduct) => {
+  const renderGoods = listOfGoods.reduce((acc, particularProduct) => {
     const basketCount = listOfIdsProducts.find(({ id }) => {
       return id === particularProduct.id
     })
-    if (particularProduct.title.toLowerCase().includes(charForFilter.toLowerCase())) {
-      return (
+    if (
+      particularProduct.title.toLowerCase().includes(charForFilter.toLowerCase()) ||
+      charForFilter === ''
+    ) {
+      return [
+        ...acc,
         <Product
           basketCount={basketCount?.quantity}
           key={particularProduct.id}
           particularProduct={particularProduct}
         />
-      )
+      ]
     }
-    return (
-      charForFilter === '' && (
-        <Product
-          quantity={basketCount?.quantity}
-          key={particularProduct.id}
-          particularProduct={particularProduct}
-        />
-      )
-    )
-  })
-  console.log(renderGoods.length)
+    return acc
+  }, [])
   return (
     (renderGoods.length && <article className={style}>{renderGoods}</article>) || (
       <ProductNotFound />
