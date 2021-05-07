@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { Transition } from '@headlessui/react'
 import CurrencyRates from './CurrencyRates'
 import MobileMainMenu from './MobileNavBar/MobileMainMenu'
@@ -18,12 +19,15 @@ const NavBar = () => {
             setIsOpenMobileMenu={setIsOpenMobileMenu}
             isOpenMobileMenu={isOpenMobileMenu}
           />
-          <div className="hidden sm:flex">
+          <div className="hidden sm:flex mr-auto">
             <div className="flex items-baseline space-x-4">
               <CurrencyRates />
               <SortingOfGoods />
               <InputSearch />
             </div>
+            <Link to="/" className="h-10 w-32 mx-10 lg:mx-32 flex items-center">
+              <img alt="logo" src="images/logo-ecommerce.png" />
+            </Link>
           </div>
           <ShowInputSearch />
           <QuantityGoodsInBasket />
