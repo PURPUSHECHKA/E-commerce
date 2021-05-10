@@ -1,7 +1,9 @@
 const ADD_ID = 'ADD_ID'
+const COST_OF_ALL_PRODUCTS = 'COST_OF_ALL_PRODUCTS'
 
 const initialState = {
   listOfIdsProducts: [],
+  costOfAllProducts: '',
   productTitle: ''
 }
 
@@ -13,6 +15,13 @@ export default (state = initialState, action) => {
         ...state,
         listOfIdsProducts,
         productTitle
+      }
+    }
+    case COST_OF_ALL_PRODUCTS: {
+      const { costOfAllProducts } = action
+      return {
+        ...state,
+        costOfAllProducts
       }
     }
     default:
@@ -47,5 +56,11 @@ export const addIdForProduct = (id, number = 1) => {
       listOfIdsProducts: updatedListOfIdsProducts,
       productTitle
     })
+  }
+}
+
+export const getCostOfAllProducts = (totalCost, typeOfCurrency) => {
+  return (dispatch) => {
+    dispatch({ type: COST_OF_ALL_PRODUCTS, costOfAllProducts: `${totalCost} ${typeOfCurrency}` })
   }
 }
