@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Head from './head'
-
 import ListOfGoods from './Goods/ListOfGoods'
 import NavBar from './NavBar/NavBar'
 
