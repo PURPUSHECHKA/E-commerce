@@ -2,8 +2,10 @@ import React, { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import cn from 'classnames'
 
 import { setCurrencyRate } from '../../redux/reducers/reducerOfGoods'
+import activityButtons from '../helperFunc/activityButtons'
 
 const CurrencyRates = () => {
   const dispatch = useDispatch()
@@ -13,18 +15,8 @@ const CurrencyRates = () => {
   const changeCurrency = (rate) => {
     dispatch(setCurrencyRate(rate))
   }
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
 
-  function activityButtons(currency) {
-    const notActiveButton =
-      'w-full rounded-md mt-1 px-2 py-1 bg-blue-200 hover:bg-blue-300 text-bold text-violet-500 transition duration-700 focus:outline-none'
-    const activeButton =
-      'w-full rounded-md mt-1 px-2 py-1 bg-violet-500 hover:bg-violet-600 text-bold text-amber-500 transition duration-700 focus:outline-none'
-    return currencyType === currency ? activeButton : notActiveButton
-  }
-
+  const { notActiveDropDown, activeDropDown, notActiveClick, activeClick } = activityButtons
   return (
     <Menu
       as="div"
@@ -56,22 +48,25 @@ const CurrencyRates = () => {
               <Menu.Item>
                 {({ active }) => (
                   <div
-                    className={classNames(
-                      active
-                        ? 'flex flex-col bg-gray-200 rounded-lg transition duration-700 shadow-lg p-1'
-                        : 'flex flex-col bg-gray-100 rounded-lg transition duration-700 shadow-sm p-1'
-                    )}
+                    className={cn(notActiveDropDown, {
+                      [activeDropDown]: active
+                    })}
                   >
-                    {['USD', 'EUR', 'CAD', 'RUB'].map((currency) => (
-                      <button
-                        key={currency}
-                        className={activityButtons(currency)}
-                        type="button"
-                        onClick={() => changeCurrency(currency)}
-                      >
-                        {currency}
-                      </button>
-                    ))}
+                    {['USD', 'EUR', 'CAD', 'RUB'].map((currency) => {
+                      const currencyButton = currencyType === currency
+                      return (
+                        <button
+                          key={currency}
+                          className={cn(notActiveClick, {
+                            [activeClick]: currencyButton
+                          })}
+                          type="button"
+                          onClick={() => changeCurrency(currency)}
+                        >
+                          {currency}
+                        </button>
+                      )
+                    })}
                   </div>
                 )}
               </Menu.Item>
