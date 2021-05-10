@@ -14,7 +14,7 @@ const InputSearch = () => {
 
   useEffect(() => {
     dispatch(getCharactersToFilter(searchCharacter, setSearchCharacter))
-  }, [searchCharacter])
+  }, [dispatch, searchCharacter])
 
   return (
     <div className="flex ml-2 sm:m-auto h-7 sm:h-10 bg-blue-50 border border-gray-600 text-sm rounded-full">
