@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { gettingGoods, gettingRates } from '../../redux/reducers/reducerOfGoods'
-import getImage from '../reuseFunc/getImage'
+import getImage from '../helperFunc/getImage'
 
 import Product from './Product'
 import ProductNotFound from './ProductNotFound'
@@ -18,27 +18,31 @@ const Goods = () => {
   useEffect(() => {
     dispatch(gettingGoods(getImage))
     dispatch(gettingRates())
-  }, [])
+  }, [dispatch])
 
-  const renderGoods = listOfGoods.reduce((acc, particularProduct) => {
-    const basketCount = listOfIdsProducts.find(({ id }) => {
-      return id === particularProduct.id
-    })
-    if (
-      particularProduct.title.toLowerCase().includes(charForFilter.toLowerCase()) ||
-      charForFilter === ''
-    ) {
-      return [
-        ...acc,
-        <Product
-          basketCount={basketCount?.quantity}
-          key={particularProduct.id}
-          particularProduct={particularProduct}
-        />
-      ]
-    }
-    return acc
-  }, [])
+  const renderGoods = useMemo(
+    () =>
+      listOfGoods.reduce((acc, particularProduct) => {
+        const basketCount = listOfIdsProducts.find(({ id }) => {
+          return id === particularProduct.id
+        })
+        if (
+          particularProduct.title.toLowerCase().includes(charForFilter.toLowerCase()) ||
+          charForFilter === ''
+        ) {
+          return [
+            ...acc,
+            <Product
+              basketCount={basketCount?.quantity}
+              key={particularProduct.id}
+              particularProduct={particularProduct}
+            />
+          ]
+        }
+        return acc
+      }, []),
+    [listOfGoods, listOfIdsProducts, charForFilter]
+  )
   return (
     (renderGoods.length && <article className={style}>{renderGoods}</article>) || (
       <ProductNotFound />
