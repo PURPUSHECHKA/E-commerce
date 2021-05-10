@@ -14,4 +14,4 @@ const Ecommerce = () => {
 
 Ecommerce.propTypes = {}
 
-export default React.memo(Ecommerce)
+export default Ecommerce
