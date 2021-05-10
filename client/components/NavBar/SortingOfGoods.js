@@ -2,35 +2,33 @@ import React, { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-
+import cn from 'classnames'
 import { doSortingGoods } from '../../redux/reducers/reducerOfGoods'
-import getImage from '../reuseFunc/getImage'
+import getImage from '../helperFunc/getImage'
+import { ORDER_SORTABLE_FACTOR } from '../constantes/constantes'
+import activityButtons from '../helperFunc/activityButtons'
 
 const SortingOfGoods = () => {
   const dispatch = useDispatch()
   const { sortedType } = useSelector((s) => s.reducerOfGoods)
 
-  const activityButtons = (type) => {
-    const notActiveButton =
-      'w-full rounded-md mt-1 px-2 py-1 bg-blue-200 hover:bg-blue-300 text-bold text-violet-500 transition duration-700 focus:outline-none'
-    const activeButton =
-      'w-full rounded-md mt-1 px-2 py-1 bg-violet-500 hover:bg-violet-600 text-bold text-amber-500 transition duration-700 focus:outline-none'
-
-    return sortedType === type ? activeButton : notActiveButton
-  }
-
   const changeParameterForSorting = (data, type) => dispatch(doSortingGoods(data, type, getImage))
-
-  const classNames = (...classes) => classes.filter(Boolean).join(' ')
+  const { notActiveDropDown, activeDropDown, notActiveClick, activeClick } = activityButtons
 
   const renderButtons = ['Default', 'Price ▲', 'Price ▼', 'Title ▲', 'Title ▼'].map((type, i) => {
+    const currentSorted = type === sortedType
     if (i === 0) {
       return (
         <button
           key={type}
           type="button"
-          className={activityButtons(type)}
-          onClick={() => changeParameterForSorting(`{ "type": "${type}", "order": "null" }`, type)}
+          className={cn(notActiveClick, { [activeClick]: currentSorted })}
+          onClick={() =>
+            changeParameterForSorting(
+              `{ "type": "${type}", "order": "${ORDER_SORTABLE_FACTOR}" }`,
+              type
+            )
+          }
         >
           {type}
         </button>
@@ -41,10 +39,12 @@ const SortingOfGoods = () => {
       <button
         key={type}
         type="button"
-        className={activityButtons(type)}
+        className={cn(notActiveClick, { [activeClick]: currentSorted })}
         onClick={() =>
           changeParameterForSorting(
-            `{ "type": "${type.slice(0, -2)}", "order": "${type.slice(-1) === '▲' ? 1 : -1}" }`,
+            `{ "type": "${type.slice(0, -2)}", "order": "${
+              type.slice(-1) === '▲' ? 1 + ORDER_SORTABLE_FACTOR : -1 + ORDER_SORTABLE_FACTOR
+            }" }`,
             type
           )
         }
@@ -85,13 +85,7 @@ const SortingOfGoods = () => {
             >
               <Menu.Item>
                 {({ active }) => (
-                  <div
-                    className={classNames(
-                      active
-                        ? 'flex flex-col bg-gray-200 rounded-md transition duration-700 shadow-lg p-1'
-                        : 'flex flex-col bg-gray-100 rounded-md transition duration-700 shadow-sm p-1'
-                    )}
-                  >
+                  <div className={cn(notActiveDropDown, { [activeDropDown]: active })}>
                     {renderButtons}
                   </div>
                 )}
