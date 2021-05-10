@@ -25,7 +25,7 @@ const NavBar = () => {
               <SortingOfGoods />
               <InputSearch />
             </div>
-            <Link to="/" className="h-10 w-32 mx-10 lg:mx-32 flex items-center">
+            <Link to="/" className="h-10 w-32 mx-2 md:mx-10 xl:mx-32 flex items-center">
               <img alt="logo" src="images/logo-ecommerce.png" />
             </Link>
           </div>
