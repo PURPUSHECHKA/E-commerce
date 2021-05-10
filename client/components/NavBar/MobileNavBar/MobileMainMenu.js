@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const MobileMainMenu = ({ setIsOpenMobileMenu, isOpenMobileMenu }) => {
+  const openMenu = () => setIsOpenMobileMenu(!isOpenMobileMenu)
   return (
     <div className="mr-auto sm:hidden">
       <button
-        onClick={() => setIsOpenMobileMenu(!isOpenMobileMenu)}
+        onClick={openMenu}
         type="button"
-        className="bg-red-300 inline-flex items-center justify-center p-2 rounded-lg border border-cyan-400 focus:outline-none"
+        className="inline-flex items-center justify-center p-2 rounded-lg bg-red-200 hover:bg-red-300 transition duration-700 border border-cyan-400 focus:outline-none"
         aria-controls="mobile-menu"
         aria-expanded="false"
       >
