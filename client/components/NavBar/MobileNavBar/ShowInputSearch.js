@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -10,7 +10,10 @@ const ShowInputSearch = () => {
   const [isOpenInputSearch, setIsOpenInputSearch] = useState(false)
   const { setCharForFilter } = useSelector((s) => s.reducerOfGoods)
 
-  const openInputSearch = () => setIsOpenInputSearch(!isOpenInputSearch)
+  const openInputSearch = useCallback(() => {
+    setIsOpenInputSearch(!isOpenInputSearch)
+    setCharForFilter('')
+  }, [setIsOpenInputSearch, setCharForFilter, isOpenInputSearch])
 
   return (
     <div className="flex justify-between flex-row-reverse flex-grow sm:hidden">
@@ -20,9 +23,7 @@ const ShowInputSearch = () => {
           <button
             className="mx-1 text-gray-700 sm:hidden focus:outline-none"
             type="button"
-            onClick={() => {
-              return [openInputSearch(), setCharForFilter('')]
-            }}
+            onClick={openInputSearch}
           >
             Close
           </button>
@@ -61,7 +62,7 @@ const ShowInputSearch = () => {
         <InputSearch />
       </Transition>
       {!isOpenInputSearch && (
-        <Link to="/" className="h-10 w-32 mx-auto lg:mx-32 flex items-center">
+        <Link to="/" className="h-10 w-32 mx-auto md:mx-10 xl:mx-32 flex items-center">
           <img alt="logo" src="images/logo-ecommerce.png" />
         </Link>
       )}
