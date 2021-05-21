@@ -14,12 +14,12 @@ const Basket = () => {
     <div className="px-2% bg-gradient-to-b from-cyan-50 via-fuchsia-50 to-amber-50">
       <NavBar />
       <table className="m-0 p-0 w-full table-fixed rounded-lg">
-        <caption className="text-2xl sm:text-3xl text-gray-700 font-bold sm:font-extrabold mb-4">
+        <caption className="text-2xl sm:text-3xl text-red-500 font-bold sm:font-extrabold mb-4">
           {goodsInBasket.length > 0 ? 'Basket' : 'Basket is empty'}
         </caption>
         {goodsInBasket.length > 0 && (
-          <thead className="mb-5 border-b rounded-lg">
-            <tr className="p-4 bg-blueGray-300">
+          <thead className="mb-5 border-b border-red-400 rounded-lg">
+            <tr className="p-4 bg-red-200 hover:bg-red-300">
               {['PRICE', 'QUANTITY', 'UNTIL PRICE', 'TOTAL PRICE'].map((headerName) => {
                 return (
                   <th
@@ -41,10 +41,7 @@ const Basket = () => {
             const totalValueOfGoods = (particularProduct.price * currencyRate).toFixed(2)
             const totalValue = (quantity * particularProduct.price * currencyRate).toFixed(2)
             return (
-              <tr
-                className="p-4 bg-blueGray-200 border-b border-blueGray-400"
-                key={particularProduct.id}
-              >
+              <tr className="p-4 bg-red-100 border-b border-red-400" key={particularProduct.id}>
                 <td className="py-4 px-6 text-right sm:text-center" data-label="PRODUCT">
                   <div className="flex flex-row-reverse items-center">
                     <img
@@ -75,7 +72,7 @@ const Basket = () => {
 
         {goodsInBasket.length > 0 && (
           <tfoot classame="rounded-lg">
-            <tr className="bg-blueGray-300 p1 sm:p-4">
+            <tr className="bg-red-200 hover:bg-red-300 p1 sm:p-4">
               <td
                 colSpan="4"
                 className="p-1 sm:p-4 font-bold sm:font-extrabold text:xl sm:text-2xl text-center xs:text-start"
