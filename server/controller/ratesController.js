@@ -2,7 +2,7 @@ import axios from 'axios'
 
 exports.getRates = async (_req, res) => {
   try {
-    const url = 'https://api.ratesapi.io/api/latest?base=USD&symbols=EUR,CAD,RUB,USD'
+    const url = 'https://api.exchangerate.host/latest?base=USD&symbols=USD,EUR,CAD,RUB'
     const {
       data: { rates }
     } = await axios(url)
